@@ -1,0 +1,98 @@
+* {
+  box-sizing: border-box;
+
+  --bg-color: #EEF9BF;
+  --card-green: #A7E9AF;
+  --title-green: #75B79E;
+}
+
+html body {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+
+  background-color: var(--bg-color);
+}
+
+/*************** HEADER | Title ******************/
+
+header {
+  width: 100%;
+}
+
+header .title {
+  margin: 40px 100px;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  font-size: 56px;
+  line-height: 65.6px;
+  color: var(--title-green);
+}
+
+/*************** CARDS CONTAINER ******************/
+
+.cards-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  flex-wrap: wrap;
+  gap: 34px;
+
+  margin: 0 100px;
+  padding-bottom: 150px;
+}
+
+.card {
+  width: 200px;
+  height: 250px;
+  position: relative;
+}
+
+.face {
+  background-image: url(../assets/front.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+
+  width: 100%;
+  height: 100%;
+  background-color: #A7E9AF;
+  border-radius: 10px;
+  border: 1px solid #99CEA8;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, .3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: all .5s;
+  transform-style: preserve-3d;
+}
+
+.back-face {
+  transform: rotateY(180deg);
+}
+
+.card:hover .back-face {
+  transform: rotateY(0deg);
+}
+
+.card:hover .front-face {
+  transform: rotateY(-180deg);
+}
+
+/*************** MEDIA QUERIES ******************/
+
+@media (max-width: 614px) {
+  header .title {
+    font-size: 36px;
+    line-height: 42.2px;
+  }
+}
