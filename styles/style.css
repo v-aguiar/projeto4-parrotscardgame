@@ -86,15 +86,40 @@ header .title {
 
 .back-face {
   transform: rotateY(180deg);
+
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-position: center;
 }
 
-/* .card:hover .back-face {
-  transform: rotateY(0deg);
-} */
+/* Cards Backgrounds */
+.bg1 {
+  background-image: url('../assets/bobrossparrot.gif') !important;
+}
 
-/* .card:hover .front-face {
-  transform: rotateY(-180deg);
-} */
+.bg2 {
+  background-image: url('../assets/explodyparrot.gif');
+}
+
+.bg3 {
+  background-image: url('../assets/fiestaparrot.gif');
+}
+
+.bg4 {
+  background-image: url('../assets/metalparrot.gif');
+}
+
+.bg5 {
+  background-image: url('../assets/revertitparrot.gif');
+}
+
+.bg6 {
+  background-image: url('../assets/tripletsparrot.gif');
+}
+
+.bg7 {
+  background-image: url('../assets/unicornparrot.gif');
+}
 
 /*************** MEDIA QUERIES ******************/
 

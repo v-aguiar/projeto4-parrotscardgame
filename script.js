@@ -1,5 +1,17 @@
+// Array randomizer
+function comparador() {
+  return Math.random() - 0.5;
+}
+
+function getRandomNumber(number) {
+  const randomNumber = (Math.floor(Math.random() * number))
+
+  return randomNumber + 1
+}
+
+// Get valid number of card
 function getNumberOfCards() {
-  const numberOfCards = parseInt(prompt("Digite um número par entre 2 e 14 para jogar", "Ex.: '2', '6', '12'"))
+  const numberOfCards = parseInt(prompt("Digite um número par entre 4 e 14 para jogar", "Ex.: '4', '6', '12'"))
 
   const validateEvenNumber = (numberOfCards % 2 == 0)
   const validateNumberOfCards = ((numberOfCards >= 4) && (numberOfCards <= 14))
@@ -12,11 +24,45 @@ function getNumberOfCards() {
   }
 }
 
-const validNumberOfCards = getNumberOfCards()
+// Card Functions
 
-addCards()
+function addCards() {
+  const cardsContainer = document.querySelector(".cards-container")
 
-// ***************** Flip card on click function
+  cardsContainer.innerHTML = createCardsRandomizedStructure()
+}
+
+function createCardsRandomizedStructure() {
+  const arrayOfNumbers = []
+
+  let bgNumber = null
+  let cardStructure = ''
+
+  for(let index = 0; index < validNumberOfCards; index++) {
+    bgNumber = getRandomNumber(validNumberOfCards / 2)
+
+    let maxRandomBgArray = (arrayOfNumbers.filter((number) => number === bgNumber))
+
+    // Verifies if the same background has already been aplied two times
+    while(maxRandomBgArray.length === 2) {
+      bgNumber = getRandomNumber(validNumberOfCards / 2)
+
+      maxRandomBgArray = (arrayOfNumbers.filter((number) => number === bgNumber))
+    }
+
+    cardStructure += `
+      <div class="card">
+      <div class="front-face face"></div>
+      <div class="back-face face bg${bgNumber}"></div>
+      </div>
+      `
+
+    arrayOfNumbers.push(bgNumber)
+  }
+  return cardStructure
+}
+
+// Flip card on click function
 
 function flipClickedCard(card) {
   // Flip card
@@ -31,27 +77,12 @@ function flipClickedCard(card) {
 
 }
 
-// ***************** Card Functions
+const validNumberOfCards = getNumberOfCards()
 
-function addCards() {
-  const cardsContainer = document.querySelector(".cards-container")
-  console.log(cardsContainer)
-  const cardStructure = `
-    <div class="card">
-      <div class="front-face face"></div>
-      <div class="back-face face"></div>
-    </div>
-  `
-
-  for(let index = 0; index < validNumberOfCards; index++) {
-    cardsContainer.innerHTML += cardStructure
-  }
-}
+addCards()
 
 const cards = document.querySelectorAll('.card')
 
 cards.forEach((card) => {
   card.addEventListener('click', () => {flipClickedCard(card)})
 })
-
-
