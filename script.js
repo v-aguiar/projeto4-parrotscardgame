@@ -1,33 +1,4 @@
-// Randomizer
-function getRandomNumber(number) {
-  const randomNumber = (Math.floor(Math.random() * number))
-
-  return randomNumber + 1
-}
-
-// Get valid number of card
-function getNumberOfCards() {
-  const numberOfCards = parseInt(prompt("Digite um número par entre 4 e 14 para jogar", "Ex.: '4', '6', '12'"))
-
-  const validateEvenNumber = (numberOfCards % 2 == 0)
-  const validateNumberOfCards = ((numberOfCards >= 4) && (numberOfCards <= 14))
-  const isNotValid = ((!validateEvenNumber === false) && (!validateNumberOfCards === false))
-
-  if(isNotValid !== true) {
-    getNumberOfCards();
-  } else {
-    return numberOfCards;
-  }
-}
-
 // Card Functions
-
-function areAllCardsFacedUp() {
-  if(youWinComparator === validNumberOfCards) {
-    setTimeout(() => {alert(`Você ganhou em ${turnedCardsCount} jogadas!`)}, 500)
-  }
-}
-
 function addCards() {
   const cardsContainer = document.querySelector(".cards-container")
 
@@ -64,6 +35,15 @@ function createCardsRandomizedStructure() {
   return cardStructure
 }
 
+function areAllCardsFacedUp() {
+  if(youWinComparator === validNumberOfCards) {
+    timer.stopTimer()
+
+    setTimeout(() => {alert(`Você ganhou em ${timer.element.innerHTML} segundos e ${turnedCardsCount} jogadas!`)}, 500)
+  }
+}
+
+// Card click functions
 function handleCardClick() {
   const cards = document.querySelectorAll('.card')
 
@@ -72,6 +52,11 @@ function handleCardClick() {
       clickedCards.push(card)
       turnedCardsCount++
       clicks++
+
+      // Start counting time
+      if(turnedCardsCount === 1) {
+        timer.startTimer()
+      }
 
       const firstClick = (clicks === 1)
       const secondClick = (clicks === 2)
@@ -132,7 +117,47 @@ function flipClickedCardsBack() {
   resetClickCount()
 }
 
-// Logic
+// Get valid number of cards
+function getNumberOfCards() {
+  const numberOfCards = parseInt(prompt("Digite um número par entre 4 e 14 para jogar", "Ex.: '4', '6', '12'"))
+
+  const validateEvenNumber = (numberOfCards % 2 == 0)
+  const validateNumberOfCards = ((numberOfCards >= 4) && (numberOfCards <= 14))
+  const isNotValid = ((!validateEvenNumber === false) && (!validateNumberOfCards === false))
+
+  if(isNotValid !== true) {
+    getNumberOfCards();
+  } else {
+    return numberOfCards;
+  }
+}
+
+// Randomizer
+function getRandomNumber(number) {
+  const randomNumber = (Math.floor(Math.random() * number))
+
+  return randomNumber + 1
+}
+
+// Timer Functions - Bonus (training object usage)
+const timer = {
+  element: document.querySelector('header .timer'),
+  interval: number = 0,
+
+  startTimer() {
+    const interval = setInterval(() => {
+      this.element.innerHTML = parseInt(this.element.innerHTML) + 1
+    }, 1000)
+
+    this.interval = interval
+  },
+
+  stopTimer() {
+    clearInterval(this.interval)
+  }
+}
+
+// Declarations
 
 const validNumberOfCards = getNumberOfCards()
 const clickedCards = []
