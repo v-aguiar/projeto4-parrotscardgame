@@ -92,7 +92,8 @@ header .title {
   background-position: center;
 }
 
-/* Cards Backgrounds */
+/************ Cards Backgrounds **********/
+
 .bg1 {
   background-image: url('../assets/bobrossparrot.gif') !important;
 }

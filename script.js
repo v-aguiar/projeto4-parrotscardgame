@@ -1,8 +1,4 @@
-// Array randomizer
-function comparador() {
-  return Math.random() - 0.5;
-}
-
+// Randomizer
 function getRandomNumber(number) {
   const randomNumber = (Math.floor(Math.random() * number))
 
@@ -25,6 +21,12 @@ function getNumberOfCards() {
 }
 
 // Card Functions
+
+function areAllCardsFacedUp() {
+  if(youWinComparator === validNumberOfCards) {
+    setTimeout(() => {alert(`Você ganhou em ${turnedCardsCount} jogadas!`)}, 500)
+  }
+}
 
 function addCards() {
   const cardsContainer = document.querySelector(".cards-container")
@@ -62,27 +64,83 @@ function createCardsRandomizedStructure() {
   return cardStructure
 }
 
-// Flip card on click function
+function handleCardClick() {
+  const cards = document.querySelectorAll('.card')
+
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      clickedCards.push(card)
+      turnedCardsCount++
+      clicks++
+
+      const firstClick = (clicks === 1)
+      const secondClick = (clicks === 2)
+      const offClick = (clicks >= 3)
+
+      if(firstClick) {
+        flipClickedCard(card)
+      } else if(secondClick) {
+        flipClickedCard(card)
+        compareClickedCards()
+      } else if(offClick) {
+        turnedCardsCount--
+        clicks--
+      }
+    })
+  })
+}
+
+function compareClickedCards() {
+  const firstClickedCardClassList = (clickedCards[0].children[1].classList.value)
+  const secondClickedCardClassList = (clickedCards[1].children[1].classList.value)
+
+  const cardsAreEqual = firstClickedCardClassList == secondClickedCardClassList
+
+  if(cardsAreEqual) {
+    youWinComparator += 2
+
+    resetClickCount()
+    console.log(youWinComparator)
+    areAllCardsFacedUp()
+  } else {
+    flipClickedCardsBack()
+  }
+}
+
+function resetClickCount() {
+  clicks = 0
+
+  for(let index = 0; index <= clickedCards.length; index++) {
+    clickedCards.pop()
+  }
+}
 
 function flipClickedCard(card) {
   // Flip card
   card.querySelector('.back-face').style.transform = 'rotateY(0deg)'
   card.querySelector('.front-face').style.transform = 'rotateY(-180deg)'
-
-  // Return card to initial position
-  setTimeout(() => {
-    card.querySelector('.back-face').style.transform = 'rotateY(180deg)'
-    card.querySelector('.front-face').style.transform = 'rotateY(0deg)'
-  }, 2000)
-
 }
 
+function flipClickedCardsBack() {
+  // Return card to initial position
+  clickedCards.forEach((card) => {
+    setTimeout(() => {
+      card.querySelector('.back-face').style.transform = 'rotateY(180deg)'
+      card.querySelector('.front-face').style.transform = 'rotateY(0deg)'
+    }, 1000)
+  })
+  resetClickCount()
+}
+
+// Logic
+
 const validNumberOfCards = getNumberOfCards()
+const clickedCards = []
+
+let youWinComparator = 0
+let turnedCardsCount = 0
+let clicks = 0
 
 addCards()
+handleCardClick()
 
-const cards = document.querySelectorAll('.card')
-
-cards.forEach((card) => {
-  card.addEventListener('click', () => {flipClickedCard(card)})
-})
