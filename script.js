@@ -39,7 +39,18 @@ function areAllCardsFacedUp() {
   if(youWinComparator === validNumberOfCards) {
     timer.stopTimer()
 
-    setTimeout(() => {alert(`Você ganhou em ${timer.element.innerHTML} segundos e ${turnedCardsCount} jogadas!`)}, 500)
+    setTimeout(() => {
+      alert(`Você ganhou em ${timer.element.innerHTML} segundos e ${turnedCardsCount} jogadas!`)
+    }, 500)
+
+    setTimeout(() => {
+      const answer = prompt('Deseja testar sua memória outra vez? Y/N')
+      const validAnswer = answer.trim().toUpperCase()
+
+      if(validAnswer === 'Y' || validAnswer === 'YES') {
+        restartGame()
+      }
+    }, 500)
   }
 }
 
@@ -85,8 +96,8 @@ function compareClickedCards() {
     youWinComparator += 2
 
     resetClickCount()
-    console.log(youWinComparator)
     areAllCardsFacedUp()
+
   } else {
     flipClickedCardsBack()
   }
@@ -139,6 +150,23 @@ function getRandomNumber(number) {
   return randomNumber + 1
 }
 
+// Restar game -> Bonus
+function restartGame() {
+  youWinComparator = 0
+  turnedCardsCount = 0
+  resetClickCount()
+
+  timer.element.innerHTML = '0'
+
+  const cardsContainer = document.querySelector('.cards-container')
+  cardsContainer.innerHTML = ''
+
+  validNumberOfCards = getNumberOfCards()
+
+  setTimeout(() => {addCards()}, 500)
+  setTimeout(() => {handleCardClick()}, 500)
+}
+
 // Timer Functions - Bonus (training object usage)
 const timer = {
   element: document.querySelector('header .timer'),
@@ -159,7 +187,7 @@ const timer = {
 
 // Declarations
 
-const validNumberOfCards = getNumberOfCards()
+let validNumberOfCards = getNumberOfCards()
 const clickedCards = []
 
 let youWinComparator = 0
