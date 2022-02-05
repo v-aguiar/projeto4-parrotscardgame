@@ -53,9 +53,9 @@ function createCardsRandomizedStructure() {
     }
 
     cardStructure += `
-      <div class="card">
-      <div class="front-face face"></div>
-      <div class="back-face face bg${bgNumber}"></div>
+      <div class="card" data-identifier="card">
+      <div class="front-face face" data-identifier="front-face"></div>
+      <div class="back-face face bg${bgNumber}" data-identifier="back-face"></div>
       </div>
       `
 
