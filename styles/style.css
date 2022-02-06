@@ -53,15 +53,18 @@ header .timer {
   justify-content: space-evenly;
 
   flex-wrap: wrap;
-  gap: 34px;
+  /* gap: 34px; */
 
   margin: 0 100px;
-  padding-bottom: 150px;
+  padding-bottom: 90px;
 }
 
 .card {
   width: 200px;
   height: 250px;
+
+  margin-bottom: 34px;
+  margin-right: 34px;
 
   position: relative;
 }
