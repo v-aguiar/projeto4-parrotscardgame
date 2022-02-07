@@ -108,7 +108,7 @@ header .timer {
 /************ Cards Backgrounds **********/
 
 .bg1 {
-  background-image: url('../assets/bobrossparrot.gif') !important;
+  background-image: url('../assets/bobrossparrot.gif');
 }
 
 .bg2 {
